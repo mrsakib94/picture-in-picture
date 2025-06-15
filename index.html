@@ -1,13 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Picture in Picture</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="image-container" id="image-container">
+      <!-- Video -->
+      <video src="" id="video" controls height="360" width="640" hidden></video>
+      <!-- Button -->
+      <div class="button-container">
+        <button id="button-start">
+          <img src="/sharescreen.png" />
+          <p>Start PiP</p>
+        </button>
+        <button id="button-stop" hidden>
+          <img src="/close.png" />
+          <p>Close PiP</p>
+        </button>
+      </div>
+      <div class="photo-credit">
+        <div>Click Start PiP to select the video source to stream</div>
+        <div>Works best in Chrome Browser</div>
+      </div>
+    </div>
+    <!-- Script -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
