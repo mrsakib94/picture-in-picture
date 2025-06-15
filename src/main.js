@@ -1,24 +1,60 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import './style.css';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const startButton = document.getElementById('button-start');
+const stopButton = document.getElementById('button-stop');
+const video = document.getElementById('video');
 
-setupCounter(document.querySelector('#counter'))
+startButton.addEventListener('click', async () => {
+  try {
+    const mediaStream = await navigator.mediaDevices.getDisplayMedia();
+    video.srcObject = mediaStream;
+
+    video.onloadedmetadata = () => {
+      video.play();
+      startPictureInPicture();
+    };
+
+    startButton.disabled = true;
+    startButton.hidden = true;
+    stopButton.disabled = false;
+    stopButton.hidden = false;
+  } catch (err) {
+    console.log('Error: ', err);
+  }
+});
+
+stopButton.addEventListener('click', async () => {
+  stopButton.disabled = true;
+  stopScreenCapture();
+  stopPictureInPicture();
+});
+
+video.addEventListener('leavepictureinpicture', function () {
+  stopScreenCapture();
+  stopPictureInPicture();
+});
+
+async function startPictureInPicture() {
+  try {
+    await video.requestPictureInPicture();
+  } catch (err) {
+    console.log('startPictureInPicture error: ', err);
+  }
+}
+
+async function stopPictureInPicture() {
+  try {
+    await document.exitPictureInPicture();
+  } catch (err) {
+    console.log('stopPictureInPicture error:', err);
+  }
+}
+
+function stopScreenCapture() {
+  let tracks = video.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
+  video.srcObject = null;
+  startButton.disabled = false;
+  startButton.hidden = false;
+  stopButton.hidden = true;
+}

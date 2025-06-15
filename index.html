@@ -10,20 +10,27 @@
     <div class="image-container" id="image-container">
       <!-- Video -->
       <video src="" id="video" controls height="360" width="640" hidden></video>
-      <!-- Button -->
-      <div class="button-container">
-        <button id="button-start">
-          <img src="/sharescreen.png" />
-          <p>Start PiP</p>
-        </button>
-        <button id="button-stop" hidden>
-          <img src="/close.png" />
-          <p>Close PiP</p>
-        </button>
-      </div>
-      <div class="photo-credit">
-        <div>Click Start PiP to select the video source to stream</div>
-        <div>Works best in Chrome Browser</div>
+      <!-- Card -->
+      <div class="card-overlay">
+        <div class="card-content">
+          <!-- Button -->
+          <div class="button-container">
+            <button id="button-start">
+              <img src="/sharescreen.png" alt="share screen icon" />
+              <p>Start PiP</p>
+            </button>
+            <button id="button-stop" hidden>
+              <img src="/close.png" alt="close icon" />
+              <p>Close PiP</p>
+            </button>
+          </div>
+          <!-- Instructions -->
+          <div class="instructions">
+            <div>Click Start PiP</div>
+            <div>Select streaming source</div>
+            <div>Works best in Chrome Browser</div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Script -->
